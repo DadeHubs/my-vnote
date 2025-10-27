@@ -2,8 +2,8 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "سایت ساده من",
-  description: "مجموعه‌ای از لینک‌ها و لیست‌های مفید",
+  title: "داده‌هاب",
+  description: "انبار شخصی بنده",
   lang: 'fa-IR', // تنظیم زبان به فارسی
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
