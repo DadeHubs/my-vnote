@@ -24,7 +24,7 @@ export default defineConfig({
 
     socialLinks: [
       // می‌توانید لینک گیت‌هاب خود را اینجا قرار دهید
-      // { icon: 'telegram', link: 'https://t.me/DadeHub' }
+      { icon: 'telegram', link: 'https://t.me/DadeHub' }
     ],
 
     // تنظیمات برای جستجو
