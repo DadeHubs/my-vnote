@@ -1,9 +1,9 @@
 ---
 layout: home
 hero:
-  name: "DadeHub | داده‌هاب"
-  text: "انبار شخصی بنده"
-  tagline: "دارم یاد میگیرم😄"
+  name: "DadeHub"
+  text: "My personal warehouse"
+  tagline: "Learning ✌🏻🥸"
   actions:
     - theme: alt
       text: لینک‌ها و لیست‌ها
