@@ -2,7 +2,7 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "داده‌هاب",
+  title: "DadeHub",
   description: "انبار شخصی بنده",
   lang: 'fa-IR', // تنظیم زبان به فارسی
   themeConfig: {
