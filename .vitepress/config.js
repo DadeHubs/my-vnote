@@ -5,18 +5,13 @@ export default defineConfig({
   title: "DadeHub",
   description: "انبار شخصی بنده",
   lang: 'fa-IR', // تنظیم زبان به فارسی
-  
-  // ==========================================================
-  // ===== این خط جدید و بسیار مهم را اضافه کنید =====
-  // ==========================================================
-  exclude: ['**/admin/**'],
-
   themeConfig: {
-    // ... بقیه themeConfig شما بدون هیچ تغییری در اینجا قرار می‌گیرد ...
+    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'خانه', link: '/' },
       { text: 'لینک‌ها و لیست‌ها', link: 'posts/links' }
     ],
+
     sidebar: [
       {
         text: 'محتوای سایت',
@@ -26,12 +21,18 @@ export default defineConfig({
         ]
       }
     ],
+
     socialLinks: [
+      // می‌توانید لینک گیت‌هاب خود را اینجا قرار دهید
       { icon: 'telegram', link: 'https://t.me/DadeHub' }
     ],
+
+    // تنظیمات برای جستجو
     search: {
       provider: 'local'
     },
+
+    // تنظیمات برای راست به چپ (RTL)
     dir: 'rtl'
   }
 })
