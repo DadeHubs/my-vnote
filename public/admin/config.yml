@@ -21,3 +21,154 @@ collections:
       - { label: "تاریخ انتشار", name: "date", widget: "datetime" }
       - { label: "توضیحات کوتاه", name: "description", widget: "string" }
       - { label: "محتوای اصلی", name: "body", widget: "markdown" }
+```**فراموش نکنید که `repo` و `base_url` را با مقادیر واقعی خود جایگزین کنید.**
+
+---
+
+### مرحله ۴ جدید: ساخت Cloudflare Worker برای احراز هویت
+
+اینجاست که جادوی اصلی اتفاق می‌افتد!
+
+1.  **ورود به داشبورد کلادفلر:**
+    وارد حساب کاربری خود در داشبورد کلادفلر شوید.
+
+2.  **ساخت یک Worker جدید:**
+    *   از منوی سمت چپ، به بخش **Workers & Pages** بروید.
+    *   روی **Create application** کلیک کرده و سپس تب **Workers** را انتخاب کنید و **Create Worker** را بزنید.
+    *   یک نام برای Worker خود انتخاب کنید (مثلاً `my-cms-auth` یا هر نام دلخواه دیگر).
+    *   روی دکمه **Deploy** کلیک کنید.
+
+3.  **قرار دادن کد احراز هویت در Worker:**
+    *   پس از ساخته شدن Worker، روی دکمه **Quick edit** کلیک کنید.
+    *   تمام کدهای موجود در ویرایشگر را پاک کنید و کد زیر را به جای آن کپی کنید. این یک کد آماده برای مدیریت فرآیند لاگین با گیت‌هاب است.
+
+    ```javascript
+    // A simplified version of https://github.com/vencax/netlify-cms-github-oauth-provider
+    
+    // Cloudflare Worker code for GitHub OAuth with Decap CMS
+    const client_id = GITHUB_CLIENT_ID;
+    const client_secret = GITHUB_CLIENT_SECRET;
+    const app_url = "https://github.com/login/oauth/access_token";
+
+    export default {
+      async fetch(request, env) {
+        // Assign secrets from environment variables
+        const client_id = env.GITHUB_CLIENT_ID;
+        const client_secret = env.GITHUB_CLIENT_SECRET;
+
+        const url = new URL(request.url);
+        const code = url.searchParams.get("code");
+
+        if (request.method === "OPTIONS") {
+          return handleOptions(request);
+        }
+
+        if (code) {
+          return await fetch(app_url, {
+            method: "POST",
+            headers: {
+              "content-type": "application/json",
+              "user-agent": "cloudflare-worker-decap-cms-oauth",
+              accept: "application/json",
+            },
+            body: JSON.stringify({ client_id, client_secret, code }),
+          })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (data) {
+              const content = `
+                <!DOCTYPE html>
+                <html>
+                  <body>
+                    <script>
+                      const receiveMessage = (message) => {
+                        window.opener.postMessage(
+                          'authorization:github:success:${JSON.stringify(data)}',
+                          message.origin
+                        );
+                        window.removeEventListener("message", receiveMessage, false);
+                      }
+                      window.addEventListener("message", receiveMessage, false);
+                      window.opener.postMessage("authorizing:github", "*");
+                    </script>
+                  </body>
+                </html>
+              `;
+              return new Response(content, {
+                status: 200,
+                headers: { "Content-Type": "text/html" },
+              });
+            });
+        }
+
+        return new Response("Error: No code parameter found", { status: 400 });
+      },
+    };
+
+    function handleOptions(request) {
+      if (
+        request.headers.get("Origin") !== null &&
+        request.headers.get("Access-Control-Request-Method") !== null &&
+        request.headers.get("Access-Control-Request-Headers") !== null
+      ) {
+        return new Response(null, {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET,HEAD,POST,OPTIONS",
+            "Access-Control-Max-Age": "86400",
+            "Access-Control-Allow-Headers": request.headers.get("Access-Control-Request-Headers"),
+          },
+        });
+      } else {
+        return new Response(null, {
+          headers: {
+            Allow: "GET, HEAD, POST, OPTIONS",
+          },
+        });
+      }
+    }
+    ```
+    *   روی **Save and Deploy** کلیک کنید.
+
+4.  **تنظیم متغیرهای محرمانه (Secrets):**
+    *   از صفحه Worker خود، به تب **Settings** و سپس زیربخش **Variables** بروید.
+    *   در قسمت **Environment Variables**، روی **Add variable** کلیک کنید.
+    *   دو متغیر زیر را تعریف کنید و حتماً روی دکمه **Encrypt** برای هرکدام کلیک کنید تا مقادیرشان امن بماند:
+        1.  **Variable name:** `GITHUB_CLIENT_ID`
+            **Value:** کلاینت آی‌دی که از گیت‌هاب در مرحله اول گرفتید.
+        2.  **Variable name:** `GITHUB_CLIENT_SECRET`
+            **Value:** کلاینت سکرت که از گیت‌هاب در مرحله اول گرفتید.
+    *   فراموش نکنید که پس از افزودن متغیرها، روی دکمه **Save and Deploy** در بالای صفحه کلیک کنید.
+
+---
+
+### مرحله پنجم: اتصال نهایی و انتشار
+
+1.  **پیدا کردن آدرس Worker:**
+    به صفحه اصلی Worker خود برگردید. آدرس کامل Worker شما در بالای صفحه نمایش داده شده است (چیزی شبیه به: `https://my-cms-auth.your-username.workers.dev`). **این آدرس را کپی کنید.**
+
+2.  **به‌روزرسانی نهایی `config.yml`:**
+    فایل `public/admin/config.yml` را در پروژه خود باز کرده و `auth_endpoint` را با آدرس Worker خود جایگزین کنید:
+
+    ```yaml
+    backend:
+      name: github
+      repo: your-username/your-repo-name
+      branch: main
+      base_url: https://your-site.pages.dev
+      # آدرس Worker خود را به همراه /auth در انتهای آن قرار دهید
+      auth_endpoint: https://my-cms-auth.your-username.workers.dev/auth 
+    
+    # ... بقیه تنظیمات ...
+    ```
+
+3.  **انتشار نهایی:**
+    تمام تغییرات را در مخزن گیت‌هاب خود `commit` و `push` کنید.
+    ```bash
+    git add .
+    git commit -m "Configure Decap CMS with Cloudflare Worker"
+    git push
+    ```
+
+کلادفلر سایت شما را مجدداً build کرده و منتشر می‌کند. حالا می‌توانید به آدرس `https://your-site.pages.dev/admin/` بروید و با حساب گیت‌هاب خود وارد پنل مدیریت شوید. این بار فرآیند احراز هویت توسط Worker شخصی شما انجام می‌شود که بسیار پایدار و امن است.
