@@ -1,12 +1,12 @@
 # آدرس سایت شما
-backend: https://my-vnote.pages.dev/
+backend: 
   DadeHubs: DadeHubs/my-vnote/tree/main
   # نام کاربری و نام مخزن خود در گیت‌هاب را وارد کنید
-  repo: your-username/your-repo-name 
+  repo: DadeHubs/my-vnote/tree/main
   branch: main # یا هر شاخه‌ای که می‌خواهید تغییرات روی آن ثبت شود
 
 # این دو خط برای مرحله بعد (احراز هویت) ضروری هستند. فعلاً خالی بگذارید.
-base_url: https://your-site.pages.dev
+base_url: https://my-vnote.pages.dev/
 auth_endpoint: /api/auth
 
 # مشخصات فایل‌های رسانه‌ای (عکس‌ها)
