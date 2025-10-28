@@ -7,7 +7,7 @@ hero:
   actions:
     - theme: alt
       text: لینک‌ها و لیست‌ها
-      link: /links
+      link: post/links
 features:
   - icon: 🔗
     title: لینک‌های سریع
