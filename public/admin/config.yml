@@ -5,7 +5,7 @@ backend:
 
   # این خطوط را بعداً با آدرس Worker خود آپدیت می‌کنیم
   base_url: https://my-vnote.pages.dev/
-  auth_endpoint: /api/auth # این یک آدرس موقت است
+  auth_endpoint: https://my-cmc.dadehubs.workers.dev/ # این یک آدرس موقت است
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
