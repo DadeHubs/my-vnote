@@ -4,7 +4,7 @@ backend:
   branch: main # شاخه اصلی شما
 
   # این خطوط را بعداً با آدرس Worker خود آپدیت می‌کنیم
-  base_url: https://my-vnote.pages.dev/
+  base_url: https://my-vnote.pages.dev
   auth_endpoint: https://my-cmc.dadehubs.workers.dev/auth # این یک آدرس موقت است
 
 media_folder: "public/images/uploads"
