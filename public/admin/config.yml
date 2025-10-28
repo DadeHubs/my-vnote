@@ -4,17 +4,3 @@ backend:
   branch: main
   auth_type: pkce
   app_id: Ov23lilI8RoPirqnP7cp
-
-media_folder: "public/images/uploads"
-public_folder: "public/images/uploads"
-
-collections:
-  - name: "pages"
-    label: "صفحات محتوایی"
-    folder: "posts"
-    create: true
-    slug: "{{slug}}"
-    identifier_field: title
-    fields:
-      - { label: "عنوان صفحه", name: "title", widget: "string" }
-      - { label: "محتوای اصلی", name: "body", widget: "markdown" }
