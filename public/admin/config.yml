@@ -11,13 +11,18 @@ media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
 
 collections:
-  - name: "posts"
-    label: "پست‌ها"
-    folder: "posts" # پوشه‌ای که پست‌های Markdown در آن قرار دارند
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - { label: "عنوان", name: "title", widget: "string" }
-      - { label: "تاریخ انتشار", name: "date", widget: "datetime" }
-      - { label: "توضیحات کوتاه", name: "description", widget: "string" }
+  # این یک مجموعه برای مدیریت "صفحات" است، مثل links.md
+  - name: "pages" # نام داخلی: صفحات
+    label: "صفحات محتوایی" # نامی که در پنل مدیریت نمایش داده می‌شود
+    folder: "posts" # فایل‌های این مجموعه در پوشه posts قرار دارند
+    create: true # اجازه ساخت صفحه جدید داده شود
+    # این مهم است: به Decap می‌گوید که فایل‌ها را بر اساس عنوانشان نام‌گذاری کند
+    slug: "{{slug}}"
+    # این مهم است: به Decap می‌گوید که فایل‌های شما از نوع "فایل تکی" نیستند
+    # بلکه مجموعه‌ای از فایل‌ها در یک پوشه هستند.
+    identifier_field: title
+    fields: # فیلدهایی که هر صفحه خواهد داشت
+      # ما یک فیلد برای "عنوان" تعریف می‌کنیم که در بالای فایل Markdown ذخیره می‌شود
+      - { label: "عنوان صفحه", name: "title", widget: "string" }
+      # و یک فیلد برای "بدنه اصلی" که تمام محتوای Markdown را شامل می‌شود
       - { label: "محتوای اصلی", name: "body", widget: "markdown" }
