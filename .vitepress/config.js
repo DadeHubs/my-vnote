@@ -6,17 +6,10 @@ export default defineConfig({
   description: "بهترین عسل‌های طبیعی و ارگانیک ایران",
   lang: 'fa-IR',
   themeConfig: {
-    // مسیردهی به استایل سفارشی
-    // این خط را اضافه کنید
-    custom: {
-      css: '/theme/style.css'
-    },
-    
-    // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'خانه', link: '/' },
-      { text: 'محصولات', link: '/products' }, // صفحه محصولات جدید
-      { text: 'تماس با ما', link: '/contact' } // صفحه تماس
+      { text: 'محصولات', link: '/products' },
+      { text: 'تماس با ما', link: '/contact' }
     ],
 
     sidebar: [
