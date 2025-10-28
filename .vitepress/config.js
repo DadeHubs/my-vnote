@@ -9,7 +9,7 @@ export default defineConfig({
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'خانه', link: '/' },
-      { text: 'لینک‌ها و لیست‌ها', link: '/links' }
+      { text: 'لینک‌ها و لیست‌ها', link: 'posts/links' }
     ],
 
     sidebar: [
@@ -17,7 +17,7 @@ export default defineConfig({
         text: 'محتوای سایت',
         items: [
           { text: 'خانه', link: '/' },
-          { text: 'لینک‌ها و لیست‌ها', link: '/links' }
+          { text: 'لینک‌ها و لیست‌ها', link: 'posts/links' }
         ]
       }
     ],
