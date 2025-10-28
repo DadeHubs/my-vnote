@@ -2,37 +2,43 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "DadeHub",
-  description: "انبار شخصی بنده",
-  lang: 'fa-IR', // تنظیم زبان به فارسی
+  title: "عسل ناب ایرانی",
+  description: "بهترین عسل‌های طبیعی و ارگانیک ایران",
+  lang: 'fa-IR',
   themeConfig: {
+    // مسیردهی به استایل سفارشی
+    // این خط را اضافه کنید
+    custom: {
+      css: '/theme/style.css'
+    },
+    
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'خانه', link: '/' },
-      { text: 'لینک‌ها و لیست‌ها', link: 'posts/links' }
+      { text: 'محصولات', link: '/products' }, // صفحه محصولات جدید
+      { text: 'تماس با ما', link: '/contact' } // صفحه تماس
     ],
 
     sidebar: [
       {
-        text: 'محتوای سایت',
+        text: 'فروشگاه عسل',
         items: [
           { text: 'خانه', link: '/' },
-          { text: 'لینک‌ها و لیست‌ها', link: 'posts/links' }
+          { text: 'محصولات', link: '/products' },
+          { text: 'درباره ما', link: '/about' }
         ]
       }
     ],
 
     socialLinks: [
-      // می‌توانید لینک گیت‌هاب خود را اینجا قرار دهید
-      { icon: 'telegram', link: 'https://t.me/DadeHub' }
+      { icon: 'telegram', link: 'https://t.me/YourHoneyChannel' },
+      { icon: 'instagram', link: 'https://instagram.com/YourHoneyPage' }
     ],
 
-    // تنظیمات برای جستجو
     search: {
       provider: 'local'
     },
 
-    // تنظیمات برای راست به چپ (RTL)
     dir: 'rtl'
   }
 })
