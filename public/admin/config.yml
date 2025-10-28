@@ -5,7 +5,7 @@ backend:
   # مهم: این نوع احراز هویت جدید است
   auth_type: pkce
   # مهم: Client ID اپلیکیشن گیت‌هاب خود را اینجا وارد کنید
-  app_id: Ov23likJ7FWBJXL4ukL0
+  app_id: Ov23lilI8RoPirqnP7cp
   # base_url و auth_endpoint دیگر لازم نیستند و حذف می‌شوند
 
 media_folder: "public/images/uploads"
