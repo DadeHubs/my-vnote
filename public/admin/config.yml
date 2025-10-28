@@ -1,1 +1,27 @@
+# آدرس سایت شما
+backend:
+  DadeHubs: DadeHubs/my-vnote/tree/main
+  # نام کاربری و نام مخزن خود در گیت‌هاب را وارد کنید
+  repo: your-username/your-repo-name 
+  branch: main # یا هر شاخه‌ای که می‌خواهید تغییرات روی آن ثبت شود
 
+# این دو خط برای مرحله بعد (احراز هویت) ضروری هستند. فعلاً خالی بگذارید.
+base_url: https://your-site.pages.dev
+auth_endpoint: /api/auth
+
+# مشخصات فایل‌های رسانه‌ای (عکس‌ها)
+media_folder: "public/images/uploads" # عکس‌ها در این پوشه در پروژه شما ذخیره می‌شوند
+public_folder: "/images/uploads" # آدرس عمومی عکس‌ها برای نمایش در سایت
+
+# تعریف انواع محتوا (اینجا فقط "پست‌ها" را تعریف می‌کنیم)
+collections:
+  - name: "posts" # نام داخلی برای مجموعه
+    label: "پست‌ها" # نامی که در پنل مدیریت نمایش داده می‌شود
+    folder: "posts" # فایل‌های Markdown در این پوشه در ریشه پروژه ذخیره می‌شوند
+    create: true # اجازه ساخت پست جدید
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}" # فرمت نام فایل‌ها
+    fields: # فیلدهایی که هر پست خواهد داشت
+      - { label: "عنوان", name: "title", widget: "string" }
+      - { label: "تاریخ انتشار", name: "date", widget: "datetime" }
+      - { label: "توضیحات کوتاه", name: "description", widget: "string" }
+      - { label: "محتوای اصلی", name: "body", widget: "markdown" }
