@@ -1,11 +1,12 @@
 backend:
   name: github
-  repo: DadeHubs/my-vnote # نام کاربری و نام مخزن گیت‌هاب
-  branch: main # شاخه اصلی شما
-
-  # این خطوط را بعداً با آدرس Worker خود آپدیت می‌کنیم
-  base_url: https://my-vnote.pages.dev
-  auth_endpoint: https://my-cmc.dadehubs.workers.dev/auth # این یک آدرس موقت است
+  repo: DadeHubs/my-vnote
+  branch: main
+  # مهم: این نوع احراز هویت جدید است
+  auth_type: pkce
+  # مهم: Client ID اپلیکیشن گیت‌هاب خود را اینجا وارد کنید
+  app_id: Ov23likJ7FWBJXL4ukL0
+  # base_url و auth_endpoint دیگر لازم نیستند و حذف می‌شوند
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
